@@ -46,7 +46,6 @@ function App() {
           onClick={closeMenu}
           aria-label="Back to top"
         >
-          <span className="brand-mark">BS</span>
           <span>Bijon Saha</span>
         </a>
         <button
