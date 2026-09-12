@@ -50,18 +50,11 @@ public/                 Static assets used by the site
 
 Portfolio content is kept in `src/data/portfolio.js` so professional information can be updated without searching through the presentation markup.
 
-## GitHub Pages deployment
+## Deployment status
 
-The project is configured for deployment to GitHub Pages using Vite and GitHub Actions. The workflow is located at `.github/workflows/deploy.yml` and runs when changes are pushed to the `main` or `master` branch.
+Deployment is intentionally disabled for this repository. No GitHub Actions workflow is configured, so pushes will not start a deployment job.
 
-To enable deployment:
-
-1. Push the repository to GitHub.
-2. Open **Settings > Pages** in the repository.
-3. Select **GitHub Actions** as the build and deployment source.
-4. Push to the configured branch or run the workflow manually from the **Actions** tab.
-
-The Vite configuration uses a relative base path, so the site does not require React Router or a backend server.
+For now, run and review the portfolio locally with `npm run dev`, or create a production bundle with `npm run build`. GitHub Pages deployment can be configured later when the site is ready to publish.
 
 ## CV privacy
 
