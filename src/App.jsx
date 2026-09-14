@@ -8,12 +8,18 @@ import {
   Mail,
   MapPin,
   Menu,
-  Phone,
   ShieldCheck,
   X,
 } from "lucide-react";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { portfolio } from "./data/portfolio";
 import "./App.css";
+
+const socialIcons = {
+  linkedin: FaLinkedinIn,
+  github: FaGithub,
+  whatsapp: FaWhatsapp,
+};
 
 const navItems = [
   ["About", "about"],
@@ -37,6 +43,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const cvPath = `${import.meta.env.BASE_URL}Bijon_Saha.pdf`;
+  const emailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.email)}`;
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
@@ -154,9 +161,11 @@ function App() {
               </a>
               <a
                 className="button button-quiet"
-                href={`mailto:${portfolio.email}`}
+                href={emailComposeUrl}
+                target="_blank"
+                rel="noreferrer"
               >
-                Contact me <Mail size={16} />
+                Send Email <Mail size={16} />
               </a>
             </div>
             <div className="hero-meta">
@@ -406,23 +415,36 @@ function App() {
           <div className="contact-panel" data-reveal="panel">
             <div>
               <p className="eyebrow">Let&apos;s talk quality</p>
-              <h2>Have a product that deserves a closer look?</h2>
+              <h2>Let&apos;s make your product more reliable.</h2>
             </div>
             <a
               className="button button-light"
-              href={`mailto:${portfolio.email}`}
+              href={emailComposeUrl}
+              target="_blank"
+              rel="noreferrer"
             >
-              Start a conversation <ArrowUpRight size={17} />
+              Send Email <ArrowUpRight size={17} />
             </a>
             <div className="contact-details">
-              <a href={`mailto:${portfolio.email}`}>
-                <Mail size={16} />
-                {portfolio.email}
-              </a>
-              <a href={`tel:${portfolio.phone}`}>
-                <Phone size={16} />
-                {portfolio.phone}
-              </a>
+              <div className="social-links" aria-label="Social links">
+                {portfolio.socialLinks.map((social) => {
+                  const Icon = socialIcons[social.icon];
+
+                  return (
+                    <a
+                      className="social-link"
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={social.name}
+                      title={social.name}
+                    >
+                      <Icon size={18} />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
