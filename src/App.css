@@ -18,6 +18,24 @@
   background: var(--paper);
   padding-top: 78px;
 }
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="hero"] {
+  transform: translateY(14px);
+}
+[data-reveal="card"],
+[data-reveal="column"] {
+  transition-delay: 100ms;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .section-wrap {
   width: min(1160px, calc(100% - 80px));
   margin: 0 auto;
@@ -44,6 +62,13 @@
   font-weight: 700;
   font-size: 18px;
   letter-spacing: -0.02em;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.brand:hover {
+  color: var(--green);
+  transform: translateX(3px);
 }
 .brand-mark {
   display: grid;
@@ -63,7 +88,31 @@
   color: var(--muted);
 }
 .site-nav a {
-  transition: color 0.2s ease;
+  position: relative;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.site-nav a:not(.nav-download)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+.site-nav a.is-active {
+  color: var(--green);
+}
+.site-nav a.is-active::after {
+  transform: scaleX(1);
+}
+.site-nav a:not(.nav-download):hover {
+  transform: translateY(-2px);
 }
 .site-nav a:hover,
 .site-footer a:hover {
@@ -73,16 +122,45 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--ink) !important;
+  width: fit-content;
+  padding: 8px 13px;
+  color: var(--white) !important;
+  background: var(--green);
   font-weight: 700;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 3px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  box-shadow: 0 5px 14px rgba(29, 98, 86, 0.14);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.nav-download:hover {
+  color: var(--green) !important;
+  background: var(--white);
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 9px 18px rgba(29, 98, 86, 0.2);
+}
+.nav-download:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
 }
 .menu-toggle {
   display: none;
   background: none;
   border: 0;
   color: var(--ink);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.menu-toggle:hover {
+  color: var(--green);
+  transform: rotate(8deg);
 }
 .hero {
   min-height: 680px;
@@ -110,6 +188,7 @@
   border-radius: 50%;
   background: #5c9f72;
   box-shadow: 0 0 0 4px #d8ebdb;
+  animation: status-pulse 2.4s ease-in-out infinite;
 }
 .eyebrow {
   margin: 0 0 15px;
@@ -199,6 +278,7 @@ h1 em {
   position: relative;
   display: grid;
   place-items: center;
+  perspective: 900px;
 }
 .visual-grid {
   position: absolute;
@@ -214,6 +294,7 @@ h1 em {
   border: 1px solid #c8d8cf;
   border-radius: 50%;
   transform: rotate(-30deg);
+  animation: orbit-drift 9s ease-in-out infinite alternate;
 }
 .orbit-one {
   width: 380px;
@@ -223,12 +304,23 @@ h1 em {
   width: 310px;
   height: 470px;
   transform: rotate(47deg);
+  animation-delay: -3s;
 }
 .signal-card {
   position: absolute;
   background: rgba(255, 254, 250, 0.93);
   box-shadow: 0 20px 55px rgba(25, 47, 39, 0.12);
   border: 1px solid #e1e5df;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+.hero-visual:hover .signal-card-main {
+  transform: translateY(-7px) rotateX(1deg) rotateY(-1deg);
+  box-shadow: 0 28px 65px rgba(25, 47, 39, 0.18);
+}
+.hero-visual:hover .signal-card-small {
+  transform: translate(4px, -5px);
 }
 .signal-card-main {
   width: min(405px, 86%);
@@ -282,6 +374,8 @@ h1 em {
   width: 83%;
   height: 100%;
   background: var(--green);
+  transform-origin: left;
+  animation: bar-grow 1.4s 0.5s both cubic-bezier(0.22, 1, 0.36, 1);
 }
 .signal-card-small {
   right: 0;
@@ -373,6 +467,13 @@ h1 em {
   border-bottom: 1px solid var(--green);
   padding-bottom: 4px;
   font: 500 12px var(--mono);
+  transition:
+    gap 0.2s ease,
+    color 0.2s ease;
+}
+.text-link:hover {
+  gap: 13px;
+  color: #164c44;
 }
 .experience {
   border-top: 1px solid var(--line);
@@ -385,6 +486,10 @@ h1 em {
   grid-template-columns: 140px 35px 1fr;
   gap: 25px;
   padding-bottom: 52px;
+  transition: transform 0.25s ease;
+}
+.experience-item:hover {
+  transform: translateX(6px);
 }
 .experience-dates {
   color: var(--muted);
@@ -404,6 +509,13 @@ h1 em {
   border: 2px solid var(--green);
   background: var(--paper);
   border-radius: 50%;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+.experience-item:hover .experience-marker span {
+  transform: scale(1.35);
+  background: var(--mint);
 }
 .experience-marker span.active {
   background: var(--green);
@@ -448,6 +560,14 @@ h1 em {
   padding: 22px;
   background: var(--white);
   border-top: 4px solid var(--mint);
+  box-shadow: 0 0 0 rgba(25, 47, 39, 0);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+.project-card:hover {
+  transform: translateY(-9px);
+  box-shadow: 0 20px 35px rgba(25, 47, 39, 0.12);
 }
 .project-card.amber {
   border-color: var(--amber);
@@ -489,6 +609,23 @@ h1 em {
   height: 39px;
   border: 1px solid var(--line);
   color: var(--green);
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.project-card:hover .project-icon {
+  color: var(--white);
+  background: var(--green);
+  border-color: var(--green);
+  transform: rotate(45deg);
+}
+.project-icon svg {
+  transition: transform 0.25s ease;
+}
+.project-card:hover .project-icon svg {
+  transform: rotate(-45deg);
 }
 .project-summary {
   min-height: 65px;
@@ -528,6 +665,15 @@ h1 em {
   background: #eef1eb;
   color: #58645c;
   font: 10px var(--mono);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.tag-list span:hover {
+  color: var(--white);
+  background: var(--green);
+  transform: translateY(-2px);
 }
 .skills {
   border-top: 1px solid var(--line);
@@ -543,6 +689,17 @@ h1 em {
   padding: 22px;
   border: 1px solid var(--line);
   background: rgba(255, 254, 250, 0.45);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--green);
+  background: var(--white);
+  box-shadow: 0 16px 28px rgba(25, 47, 39, 0.08);
 }
 .skill-number {
   color: #93a399;
@@ -568,6 +725,13 @@ h1 em {
   gap: 15px;
   padding: 20px 0;
   border-top: 1px solid var(--line);
+  transition:
+    padding-left 0.25s ease,
+    border-color 0.25s ease;
+}
+.credential-item:hover {
+  padding-left: 8px;
+  border-color: var(--green);
 }
 .credential-item h3,
 .course-item h3 {
@@ -605,6 +769,10 @@ h1 em {
   gap: 12px;
   padding: 19px 0;
   border-bottom: 1px solid var(--line);
+  transition: padding-left 0.25s ease;
+}
+.course-item:hover {
+  padding-left: 8px;
 }
 .course-item svg {
   flex: 0 0 auto;
@@ -622,6 +790,22 @@ h1 em {
   padding: 51px;
   color: var(--white);
   background: var(--green);
+  position: relative;
+  overflow: hidden;
+}
+.contact-panel::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -110px;
+  bottom: -150px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  transition: transform 0.6s ease;
+}
+.contact-panel:hover::after {
+  transform: scale(1.45);
 }
 .contact-panel .eyebrow {
   color: var(--mint);
@@ -649,6 +833,13 @@ h1 em {
   gap: 8px;
   color: #d7e8db;
   font: 11px var(--mono);
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.contact-details a:hover {
+  color: var(--white);
+  transform: translateX(4px);
 }
 .site-footer {
   display: flex;
@@ -662,6 +853,38 @@ h1 em {
 }
 .site-footer a {
   color: var(--ink);
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.site-footer a:hover {
+  color: var(--green);
+  transform: translateY(-2px);
+}
+@keyframes status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px #d8ebdb;
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(216, 235, 219, 0.25);
+  }
+}
+@keyframes orbit-drift {
+  from {
+    transform: rotate(-30deg) scale(1);
+  }
+  to {
+    transform: rotate(-24deg) scale(1.04);
+  }
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 @media (max-width: 900px) {
   .section-wrap,
@@ -729,6 +952,7 @@ h1 em {
   }
   .nav-download {
     margin-top: 7px;
+    padding: 9px 14px;
   }
   h1 {
     font-size: clamp(3rem, 16vw, 4.8rem);
@@ -833,5 +1057,7 @@ h1 em {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

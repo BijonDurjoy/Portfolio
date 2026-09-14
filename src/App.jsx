@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -15,6 +15,14 @@ import {
 import { portfolio } from "./data/portfolio";
 import "./App.css";
 
+const navItems = [
+  ["About", "about"],
+  ["Experience", "experience"],
+  ["Projects", "projects"],
+  ["Skills", "skills"],
+  ["Contact", "contact"],
+];
+
 function SectionHeading({ eyebrow, title, copy }) {
   return (
     <div className="section-heading">
@@ -27,15 +35,53 @@ function SectionHeading({ eyebrow, title, copy }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
   const cvPath = `${import.meta.env.BASE_URL}Bijon_Saha.pdf`;
-  const navItems = [
-    ["About", "about"],
-    ["Experience", "experience"],
-    ["Projects", "projects"],
-    ["Skills", "skills"],
-    ["Contact", "contact"],
-  ];
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const revealItems = document.querySelectorAll("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const sections = navItems
+      .map(([, id]) => document.getElementById(id))
+      .filter(Boolean);
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio,
+          )[0];
+
+        if (visibleSection) {
+          setActiveSection(visibleSection.target.id);
+        }
+      },
+      { rootMargin: "-22% 0px -58% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    return () => sectionObserver.disconnect();
+  }, []);
 
   return (
     <div className="site-shell">
@@ -64,7 +110,13 @@ function App() {
           aria-label="Main navigation"
         >
           {navItems.map(([label, id]) => (
-            <a key={id} href={`#${id}`} onClick={closeMenu}>
+            <a
+              className={activeSection === id ? "is-active" : ""}
+              key={id}
+              href={`#${id}`}
+              onClick={closeMenu}
+              aria-current={activeSection === id ? "location" : undefined}
+            >
               {label}
             </a>
           ))}
@@ -75,7 +127,11 @@ function App() {
       </header>
 
       <main id="top">
-        <section className="hero section-wrap" aria-labelledby="hero-title">
+        <section
+          className="hero section-wrap"
+          data-reveal="hero"
+          aria-labelledby="hero-title"
+        >
           <div className="hero-copy">
             <div className="status-line">
               <span className="status-dot" /> Software QA Engineer / Deep Mind
@@ -156,7 +212,11 @@ function App() {
           </div>
         </section>
 
-        <section id="about" className="about section-wrap section-block">
+        <section
+          id="about"
+          className="about section-wrap section-block"
+          data-reveal="section"
+        >
           <div className="section-index">
             01 <span>ABOUT</span>
           </div>
@@ -182,6 +242,7 @@ function App() {
         <section
           id="experience"
           className="experience section-wrap section-block"
+          data-reveal="section"
         >
           <div className="section-index">
             02 <span>EXPERIENCE</span>
@@ -210,7 +271,11 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="projects section-block">
+        <section
+          id="projects"
+          className="projects section-block"
+          data-reveal="section"
+        >
           <div className="section-wrap">
             <div className="section-index">
               03 <span>SELECTED PROJECTS</span>
@@ -225,6 +290,7 @@ function App() {
                 <article
                   className={`project-card ${project.accent}`}
                   key={project.name}
+                  data-reveal="card"
                 >
                   <div className="project-topline">
                     <span>{project.number}</span>
@@ -260,7 +326,11 @@ function App() {
           </div>
         </section>
 
-        <section id="skills" className="skills section-wrap section-block">
+        <section
+          id="skills"
+          className="skills section-wrap section-block"
+          data-reveal="section"
+        >
           <div className="section-index">
             04 <span>CAPABILITIES</span>
           </div>
@@ -270,7 +340,11 @@ function App() {
           />
           <div className="skills-grid">
             {portfolio.skills.map((skill) => (
-              <article className="skill-card" key={skill.title}>
+              <article
+                className="skill-card"
+                key={skill.title}
+                data-reveal="card"
+              >
                 <span className="skill-number">{skill.label}</span>
                 <h3>{skill.title}</h3>
                 <div className="tag-list">
@@ -283,8 +357,11 @@ function App() {
           </div>
         </section>
 
-        <section className="credentials section-wrap section-block">
-          <div className="credential-column">
+        <section
+          className="credentials section-wrap section-block"
+          data-reveal="section"
+        >
+          <div className="credential-column" data-reveal="column">
             <div className="section-index">
               05 <span>EDUCATION</span>
             </div>
@@ -302,7 +379,7 @@ function App() {
               </article>
             ))}
           </div>
-          <div className="credential-column">
+          <div className="credential-column" data-reveal="column">
             <div className="section-index">
               06 <span>COURSES</span>
             </div>
@@ -321,8 +398,12 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="contact section-wrap section-block">
-          <div className="contact-panel">
+        <section
+          id="contact"
+          className="contact section-wrap section-block"
+          data-reveal="section"
+        >
+          <div className="contact-panel" data-reveal="panel">
             <div>
               <p className="eyebrow">Let&apos;s talk quality</p>
               <h2>Have a product that deserves a closer look?</h2>
