@@ -6,7 +6,9 @@ The site is a responsive single-page portfolio featuring professional experience
 
 ## Live deployment
 
-The portfolio is hosted on [Netlify]([https://www.netlify.com/](https://bijon-saha.netlify.app/)).
+Visit the live portfolio: [https://bijon-saha.netlify.app/](https://bijon-saha.netlify.app/)
+
+The portfolio is hosted on [Netlify](https://www.netlify.com/).
 
 Netlify deploys the Vite production build using these settings:
 
