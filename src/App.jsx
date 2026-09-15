@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
+  BriefcaseBusiness,
   CheckCircle2,
   Download,
   FileCheck2,
+  GraduationCap,
   Mail,
   MapPin,
   Menu,
@@ -13,6 +15,8 @@ import {
 } from "lucide-react";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { portfolio } from "./data/portfolio";
+import aboutPhoto from "./assets/about-photo.jpg";
+import aboutImageFallback from "./assets/hero.png";
 import "./App.css";
 
 const socialIcons = {
@@ -230,17 +234,64 @@ function App() {
             01 <span>ABOUT</span>
           </div>
           <div className="about-grid">
-            <SectionHeading
-              eyebrow="A practical approach to quality"
-              title="Good testing is a conversation with the product."
-            />
+            <div className="about-portrait-wrap" data-reveal="card">
+              <div className="about-portrait-frame">
+                <div className="about-portrait-grid" />
+                <div className="portrait-corner portrait-corner-top" />
+                <div className="portrait-corner portrait-corner-bottom" />
+                <div className="about-portrait-image">
+                  <img
+                    src={aboutPhoto}
+                    alt={`${portfolio.name} sitting outdoors`}
+                    onError={(event) => {
+                      if (event.currentTarget.src !== aboutImageFallback) {
+                        event.currentTarget.src = aboutImageFallback;
+                      }
+                    }}
+                  />
+                </div>
+                <div className="portrait-caption">
+                  <span>01 / personal note</span>
+                  <strong>Curious by nature.</strong>
+                </div>
+              </div>
+              <span className="portrait-orbit" />
+            </div>
             <div className="about-content">
-              <p className="large-copy">{portfolio.summary}</p>
+              <SectionHeading
+                eyebrow="A practical approach to quality"
+                title="Good testing is a conversation with the product."
+              />
+              <p className="large-copy">{portfolio.about.intro}</p>
               <p>
-                I work across product surfaces and user journeys, combining
-                careful manual exploration with API testing, automation, data
-                verification, and clear defect reporting.
+                {portfolio.about.detailLead}{" "}
+                <a
+                  className="about-company-link"
+                  href={portfolio.about.companyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {portfolio.about.company}
+                </a>
+                {portfolio.about.detailContinuation}
               </p>
+              <div className="about-markers">
+                {portfolio.about.markers.map((marker, index) => (
+                  <div className="about-marker" key={marker.label}>
+                    {index === 0 ? (
+                      <MapPin size={16} />
+                    ) : index === 1 ? (
+                      <BriefcaseBusiness size={16} />
+                    ) : (
+                      <GraduationCap size={16} />
+                    )}
+                    <span>
+                      <small>{marker.label}</small>
+                      <strong>{marker.value}</strong>
+                    </span>
+                  </div>
+                ))}
+              </div>
               <a className="text-link" href={cvPath} download>
                 Download my CV <ArrowDown size={16} />
               </a>

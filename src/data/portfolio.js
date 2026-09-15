@@ -23,6 +23,21 @@ export const portfolio = {
   ],
   summary:
     "Detail-oriented QA Engineer experienced in functional, regression, API, and cross-platform testing. Skilled in Postman, JIRA, Selenium, and AI-assisted testing, with hands-on experience testing healthcare applications across Web, iOS, and Android.",
+  about: {
+    image: "/about-photo.jpg",
+    intro:
+      "Hi! I am Bijon Saha, a Software QA Engineer and Software Engineering graduate from Shahjalal University of Science and Technology (SUST). I am passionate about software quality, problem solving, and building dependable digital experiences.",
+    detailLead: "Currently, I am working as an SQA Engineer at",
+    company: "Deep Mind Labs",
+    companyUrl: "https://deepmindlabs.ai/",
+    detailContinuation:
+      ", where I contribute to healthcare, banking, and computer-vision products across web, iOS, and Android. My expertise includes functional, regression, API, cross-platform, usability, and automation testing, with tools such as Postman, Jira, Selenium, Playwright, JMeter, SQL, JavaScript, Java, Python, React, Node.js, and Git.",
+    markers: [
+      { label: "Based in", value: "Mymensingh, Bangladesh" },
+      { label: "Currently", value: "Junior QA Engineer" },
+      { label: "Education", value: "B.Sc. Software Engineering" },
+    ],
+  },
   skills: [
     {
       title: "Testing & QA",
