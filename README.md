@@ -25,6 +25,7 @@ When the repository is connected to Netlify, new commits can be deployed automat
 - JavaScript
 - Tailwind CSS
 - Lucide React
+- React Icons
 - Oxlint
 
 ## Local development

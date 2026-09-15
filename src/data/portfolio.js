@@ -4,7 +4,23 @@ export const portfolio = {
   role: "Software QA Engineer",
   location: "Mymensingh, Bangladesh",
   email: "bijon176193@gmail.com",
-  phone: "+8801602099467",
+  socialLinks: [
+    {
+      name: "LinkedIn",
+      icon: "linkedin",
+      url: "https://www.linkedin.com/in/bijondurjoy/",
+    },
+    {
+      name: "GitHub",
+      icon: "github",
+      url: "https://github.com/BijonDurjoy",
+    },
+    {
+      name: "WhatsApp",
+      icon: "whatsapp",
+      url: "https://wa.me/+8801602099467?text=",
+    },
+  ],
   summary:
     "Detail-oriented QA Engineer experienced in functional, regression, API, and cross-platform testing. Skilled in Postman, JIRA, Selenium, and AI-assisted testing, with hands-on experience testing healthcare applications across Web, iOS, and Android.",
   skills: [
