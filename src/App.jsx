@@ -46,6 +46,7 @@ function SectionHeading({ eyebrow, title, copy }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const [activeExperience, setActiveExperience] = useState(0);
   const cvPath = `${import.meta.env.BASE_URL}Bijon_Saha.pdf`;
   const emailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.email)}`;
   const closeMenu = () => setMenuOpen(false);
@@ -309,23 +310,81 @@ function App() {
           </div>
           <SectionHeading
             eyebrow="Where I have contributed"
-            title="A record of shipping with care."
+            title="Two chapters that shaped how I build and test."
+            copy="Select a company to see the role, the lessons, and the tools I carried forward."
           />
-          <div className="experience-list">
-            {portfolio.experience.map((item) => (
+          <div className="experience-tabs">
+            <div className="experience-rail" role="tablist" aria-label="Experience by company">
+              {portfolio.experience.map((item, index) => (
+                <button
+                  className={`experience-tab ${activeExperience === index ? "is-active" : ""}`}
+                  key={`${item.company}-${item.role}`}
+                  id={`experience-tab-${index}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeExperience === index}
+                  aria-controls={`experience-panel-${index}`}
+                  tabIndex={activeExperience === index ? 0 : -1}
+                  onClick={() => setActiveExperience(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+                      event.preventDefault();
+                      setActiveExperience((index + 1) % portfolio.experience.length);
+                    }
+                    if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+                      event.preventDefault();
+                      setActiveExperience((index - 1 + portfolio.experience.length) % portfolio.experience.length);
+                    }
+                  }}
+                >
+                  <span className="experience-tab-index">0{index + 1}</span>
+                  <span className="experience-tab-logo"><img src={item.logo} alt="" /></span>
+                  <span className="experience-tab-copy">
+                    <strong>{item.company}</strong>
+                    <small>{item.dates}</small>
+                  </span>
+                  <ArrowUpRight size={17} />
+                </button>
+              ))}
+            </div>
+            {portfolio.experience.map((item, index) => (
               <article
-                className="experience-item"
-                key={`${item.company}-${item.role}`}
+                className="experience-panel"
+                key={`${item.company}-panel`}
+                id={`experience-panel-${index}`}
+                role="tabpanel"
+                aria-labelledby={`experience-tab-${index}`}
+                hidden={activeExperience !== index}
               >
-                <div className="experience-dates">{item.dates}</div>
-                <div className="experience-marker">
-                  <span className={item.current ? "active" : ""} />
+                <div className="experience-panel-topline">
+                  <span>{item.current ? "CURRENT ROLE" : "EARLY CAREER"}</span>
+                  <span>{item.dates}</span>
                 </div>
-                <div className="experience-detail">
-                  <p className="eyebrow">{item.company}</p>
-                  <h3>{item.role}</h3>
-                  <p>{item.description}</p>
+                <div className="experience-company-heading">
+                  <div className="experience-logo-large"><img src={item.logo} alt={`${item.company} logo`} /></div>
+                  <div>
+                    <p className="eyebrow">{item.company}</p>
+                    <h3>{item.role}</h3>
+                  </div>
                 </div>
+                <p className="experience-summary">{item.summary}</p>
+                <p className="experience-description">{item.description}</p>
+                <div className="experience-panel-bottom">
+                  <ul className="experience-highlights">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}><CheckCircle2 size={16} /><span>{highlight}</span></li>
+                    ))}
+                  </ul>
+                  <div className="experience-stack">
+                    <span>TOOLS / STACK</span>
+                    <div className="tag-list">
+                      {item.stack.map((tool) => <span key={tool}>{tool}</span>)}
+                    </div>
+                  </div>
+                </div>
+                <a className="experience-company-link" href={item.companyUrl} target="_blank" rel="noreferrer">
+                  Visit {item.company} <ArrowUpRight size={16} />
+                </a>
               </article>
             ))}
           </div>

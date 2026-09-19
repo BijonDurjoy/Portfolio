@@ -71,16 +71,36 @@ export const portfolio = {
       role: "Junior QA Engineer",
       company: "Deep Mind Labs",
       dates: "2025 - Present",
+      companyUrl: "https://deepmindlabs.ai/",
+      logo: "https://www.google.com/s2/favicons?domain=deepmindlabs.ai&sz=128",
+      summary:
+        "Building practical quality habits around production AI products for healthcare, banking, and computer vision.",
       description:
-        "Contributed to Deep Mind Labs projects through manual testing, automation testing, data verification, and usability-focused quality work across the doctor portal, DMH AI, BankQR, and computer vision projects.",
+        "I learned the SQA sector from the ground up, from writing and reviewing test cases to planning test approaches for real product workflows. This role gave me hands-on experience with quality assurance, automation tools, and testing platforms across doctor portals, DMH AI, BankQR, and computer vision products.",
+      highlights: [
+        "Manual, regression, API, and usability testing",
+        "Test case design and scenario-based validation",
+        "Automation tools and platforms including Postman, Selenium, Playwright, Jira, and JMeter",
+      ],
+      stack: ["SQA", "Test Cases", "Postman", "Selenium", "Playwright", "Jira"],
       current: true,
     },
     {
       role: "Intern Software Engineer",
       company: "Riseup Labs",
       dates: "Sep 2024 - Feb 2025",
+      companyUrl: "https://riseuplabs.com/",
+      logo: "https://www.google.com/s2/favicons?domain=riseuplabs.com&sz=128",
+      summary:
+        "An early engineering chapter where I learned how full-stack products are shaped, connected, and shipped.",
       description:
-        "Worked on a full-stack blog writing website using MERN, including user authentication and validation through a token-based system.",
+        "During my internship, I worked with React, Node.js, and MySQL while building my basic understanding of software development. I contributed to a full-stack blog writing website, including authentication and validation through a token-based system.",
+      highlights: [
+        "Built interface features with React",
+        "Worked with Node.js for backend development",
+        "Learned database fundamentals with MySQL",
+      ],
+      stack: ["React", "Node.js", "MySQL", "REST APIs", "Authentication"],
     },
   ],
   projects: [
