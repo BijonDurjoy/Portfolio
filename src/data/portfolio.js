@@ -109,6 +109,8 @@ export const portfolio = {
       name: "DML Healthcare",
       domain: "Healthcare Project",
       client: "National Pain Centers & DMH AI",
+      website: "https://nationalpain.com/",
+      logo: "https://voyagechicago.com/wp-content/uploads/2018/04/Voyage6.jpg",
       dates: "2025 - Present",
       summary:
         "Cross-platform quality assurance for healthcare workflows spanning Web, iOS, and Android.",
@@ -130,9 +132,11 @@ export const portfolio = {
     },
     {
       number: "02",
-      name: "DML Bank QR",
+      name: "DeepQ",
       domain: "Banking Project",
       client: "Prime Bank PLC",
+      website: "https://www.primebank.com.bd/",
+      logo: "https://thefe-bd.sgp1.cdn.digitaloceanspaces.com/posts/146518/prime-bank-logo.jpg",
       dates: "May 2026 - Present",
       summary:
         "Quality coverage for a token-based queue management system that lets customers book bank services online.",
@@ -157,6 +161,8 @@ export const portfolio = {
       name: "DML Polar Project",
       domain: "Computer Vision Project",
       client: "Polar BD",
+      website: "https://polarbd.com/en/",
+      logo: "https://pbs.twimg.com/profile_images/708528481747898368/kvLvFYcv_400x400.jpg",
       dates: "May 2026 - July 2026",
       summary:
         "Manual testing for an AI-powered box counting system built with computer vision and LLM-based processing.",
