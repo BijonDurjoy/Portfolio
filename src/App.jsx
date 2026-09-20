@@ -411,6 +411,9 @@ function App() {
                   key={project.name}
                   data-reveal="card"
                 >
+                  <div className="project-cover">
+                    <img src={project.logo} alt={`${project.client} logo`} />
+                  </div>
                   <div className="project-topline">
                     <span>{project.number}</span>
                     <span>{project.dates}</span>
@@ -421,9 +424,15 @@ function App() {
                       <h3>{project.name}</h3>
                       <p className="project-client">{project.client}</p>
                     </div>
-                    <span className="project-icon">
+                    <a
+                      className="project-icon"
+                      href={project.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Visit ${project.client} website`}
+                    >
                       <ArrowUpRight size={22} />
-                    </span>
+                    </a>
                   </div>
                   <p className="project-summary">{project.summary}</p>
                   <ul className="project-contributions">
