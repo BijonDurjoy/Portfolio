@@ -10,7 +10,9 @@ import {
   Mail,
   MapPin,
   Menu,
+  Moon,
   ShieldCheck,
+  Sun,
   X,
 } from "lucide-react";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
@@ -45,11 +47,19 @@ function SectionHeading({ eyebrow, title, copy }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(
+    () => (localStorage.getItem("portfolio-theme") === "dark" ? "dark" : "light"),
+  );
   const [activeSection, setActiveSection] = useState("about");
   const [activeExperience, setActiveExperience] = useState(0);
   const cvPath = `${import.meta.env.BASE_URL}Bijon_Saha.pdf`;
   const emailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.email)}`;
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const revealItems = document.querySelectorAll("[data-reveal]");
@@ -132,6 +142,20 @@ function App() {
               {label}
             </a>
           ))}
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-pressed={theme === "dark"}
+            onClick={() =>
+              setTheme((currentTheme) =>
+                currentTheme === "dark" ? "light" : "dark",
+              )
+            }
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+          </button>
           <a className="nav-download" href={cvPath} download>
             <Download size={15} /> CV
           </a>
@@ -411,7 +435,7 @@ function App() {
                   key={project.name}
                   data-reveal="card"
                 >
-                  <div className="project-cover">
+                  <div className={`project-cover ${project.coverFit ?? ""}`}>
                     <img src={project.logo} alt={`${project.client} logo`} />
                   </div>
                   <div className="project-topline">
@@ -462,10 +486,23 @@ function App() {
           <div className="section-index">
             04 <span>CAPABILITIES</span>
           </div>
-          <SectionHeading
-            eyebrow="Tools for thoughtful testing"
-            title="Broad enough to see the system. Focused enough to find the flaw."
-          />
+          <div className="skills-overview">
+            <SectionHeading
+              eyebrow="Tools for thoughtful testing"
+              title="The skills behind reliable software."
+              copy="From test strategy to code, a practical toolkit for finding issues and helping teams ship with confidence."
+            />
+            <div className="skills-total" aria-label="Skills overview">
+              <strong>
+                {portfolio.skills.reduce(
+                  (total, skill) => total + skill.items.length,
+                  0,
+                )}
+              </strong>
+              <span>skills across</span>
+              <span>{portfolio.skills.length} disciplines</span>
+            </div>
+          </div>
           <div className="skills-grid">
             {portfolio.skills.map((skill) => (
               <article
@@ -473,11 +510,20 @@ function App() {
                 key={skill.title}
                 data-reveal="card"
               >
-                <span className="skill-number">{skill.label}</span>
-                <h3>{skill.title}</h3>
-                <div className="tag-list">
+                <div className="skill-card-heading">
+                  <span className="skill-number">{skill.label}</span>
+                  <div>
+                    <h3>{skill.title}</h3>
+                    <span className="skill-count">
+                      {skill.items.length} skills
+                    </span>
+                  </div>
+                </div>
+                <div className="skill-items">
                   {skill.items.map((item) => (
-                    <span key={item}>{item}</span>
+                    <span className="skill-item" key={item}>
+                      {item}
+                    </span>
                   ))}
                 </div>
               </article>
