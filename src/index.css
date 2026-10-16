@@ -2,8 +2,8 @@
 
 :root {
   font-family: "DM Sans", "Avenir Next", sans-serif;
-  color: #17211f;
-  background: #f5f5ef;
+  color: var(--ink);
+  background: var(--paper);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,10 +13,14 @@
 }
 html {
   scroll-behavior: smooth;
+  background: var(--paper);
 }
 body {
   margin: 0;
   min-width: 320px;
+  color: var(--ink);
+  background: var(--paper);
+  transition: color 0.25s ease, background-color 0.25s ease;
 }
 button,
 a {

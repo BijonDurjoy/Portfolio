@@ -72,7 +72,7 @@ export const portfolio = {
       company: "Deep Mind Labs",
       dates: "2025 - Present",
       companyUrl: "https://deepmindlabs.ai/",
-      logo: "https://www.google.com/s2/favicons?domain=deepmindlabs.ai&sz=128",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9XeG_X4G8uNKf9wSsLOd15e-8D5f2LGsDOmhqGrWOPg&s=10",
       summary:
         "Building practical quality habits around production AI products for healthcare, banking, and computer vision.",
       description:
@@ -110,7 +110,8 @@ export const portfolio = {
       domain: "Healthcare Project",
       client: "National Pain Centers & DMH AI",
       website: "https://nationalpain.com/",
-      logo: "https://voyagechicago.com/wp-content/uploads/2018/04/Voyage6.jpg",
+      logo: "https://images.squarespace-cdn.com/content/v1/56ba1eb9b09f9577e131365f/1486621912533-JCWVT9UQKY7ABS1HE1PD/Sizzle+Screenshot.jpg",
+      coverFit: "contain",
       dates: "2025 - Present",
       summary:
         "Cross-platform quality assurance for healthcare workflows spanning Web, iOS, and Android.",
